@@ -5,6 +5,7 @@
 \usepackage{authblk, listings}
 \author{Dongjing Wang}
 \affil{Student ID: 1823945}
+\lstset{columns=fullflexible}
 
 \date{January 19, 2023}
 
@@ -61,5 +62,5 @@
 \section*{Ex.6}
     \textbf{Answer:} By definition, n! can be expressed as $1\times 2\times 3...\times n$. Similarly, $\log \left(n!\right)=\log \left(1\times \:2\times \:3\times ...\times \:n\right)=\log \left( 1\right)+\log \left(2\right)+\log \left(3\right)+...\:+\log \left(n\right)$. At this point the equation can be changed to the following form: $\log \left(n!\right)=\frac{\log \left(n!\right)}{\log \left(e\right)}$. According to the nature of logarithms, $\frac{\log \left(n!\right)}{\log \left(e\right)}$ can be converted into $n\log \left(n\right)-n \log \left(e\right)$. At this point, you can go to the last step to get the answer directly: $\Theta\left(n\log \left(n\right)\right)$
 \section*{Ex.7}
-    \textbf{Answer:} By definition, n! can be expressed as $1\times 2\times 3...\times n$. Similarly, $\log \left(n!\right)=\log \left(1\times \:2\times \:3\times ...\times \:n\right)=\log \left( 1\right)+\log \left(2\right)+\log \left(3\right)+...\:+\log \left(n\right)$. At this point the equation can be changed to the following form: $\log \left(n!\right)=\frac{\log \left(n!\right)}{\log \left(e\right)}$. According to the nature of logarithms, $\frac{\log \left(n!\right)}{\log \left(e\right)}$ can be converted into $n\log \left(n\right)-n \log \left(e\right)$. At this point, you can go to the last step to get the answer directly: $\Theta\left(n\log \left(n\right)\right)$
+    \textbf{Answer:} $e^n>2^{2^n}>n2^n>3n^6>\left(\log n\right)^{10}>n!>\:\left(\frac{\log \left(n\right)}{\log \left(\log \left(n\right)\right)}\right)^{\frac{\log \left(n\right)}{\log \left(\log \left(n\right)\right)}}\:>\sqrt{n!}>10n>\log n!>\frac{n!}{4!\left(n-4\right)!}>\frac{n}{\log n}>n^{\log \left(\log \left(n\right)\right)}>\frac{n^2}{\left(\log n\right)^{10}}>\log n^3>\frac{\log n}{n}$. There may be mistakes here, because I compared them one by one when I set n to be close to infinity. If $\frac{a}{b}$ is zero, $b$ is large. If $\frac{a}{b}$ is a constant, it means that it is basically the same. If $\frac{a}{b}$ is infinite, it means that a is large.
 \end{document}

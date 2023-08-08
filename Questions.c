@@ -1,0 +1,1 @@
+// 1. Two hash functions, four buckets. I remember last time I said that one hash function manages two buckets. In this case, an element can be inserted in either of the two buckets. But in this case, is there still only one output element (for example, it can only be inserted in the fifth slot of the first bucket, or in the fifth slot of the second bucket)

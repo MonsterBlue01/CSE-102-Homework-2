@@ -99,3 +99,4 @@ Number of Keys: 98, Average Relocations: 1.010204081632653, Load Factor: 0.19140
 Number of Keys: 99, Average Relocations: 1.0, Load Factor: 0.193359375
 Number of Keys: 100, Average Relocations: 1.03, Load Factor: 0.1953125
 Number of Keys: 100, Average Relocations: 1.0, Load Factor: 0.09765625
+Number of Keys: 5, Average Relocations: 1.0, Load Factor: 0.0048828125

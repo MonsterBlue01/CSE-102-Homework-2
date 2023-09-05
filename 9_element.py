@@ -13,26 +13,29 @@ def hashes(key, size):
     h2 = mmh3.hash(key, 2) % size
     return h1, h2
 
-def find_looping_elements(size=128, num_elements=8):
-    """Find a set of elements that have the same two hash values."""
+def find_looping_elements_continuous(size=1024, num_elements=8, batch_size=100000, max_batches=10):
+    """Continuously search for a set of elements that have the same two hash values."""
     hashed_keys = {}
     
-    # Generate a sufficiently large number of keys
-    for _ in range(100000):  # The number of generated numbers (Default is 10000 but no output values)
-        key = random_key()
-        h1, h2 = hashes(key, size)
+    # Limit the number of batches to prevent infinite loop
+    for batch in range(max_batches):
+        # Generate a batch of keys
+        for _ in range(batch_size):
+            key = random_key()
+            h1, h2 = hashes(key, size)
         
-        # Check if there are other keys with the same hash values
-        if (h1, h2) in hashed_keys:
-            hashed_keys[(h1, h2)].append(key)
-            
-            # Check if we found enough keys that collide
-            if len(hashed_keys[(h1, h2)]) == num_elements:
-                return hashed_keys[(h1, h2)]
-        else:
-            hashed_keys[(h1, h2)] = [key]
-
-    return None  # Return None if no set of keys was found
+            # Check if there are other keys with the same hash values
+            if (h1, h2) in hashed_keys:
+                hashed_keys[(h1, h2)].append(key)
+            else:
+                hashed_keys[(h1, h2)] = [key]
+        
+        # Check if we found enough keys that collide
+        for keys in hashed_keys.values():
+            if len(keys) >= num_elements:
+                return keys[:num_elements]
+    
+    return None
 
 def validate_elements(elements, size):
     """Validate that the given elements have the same hash values."""
@@ -53,7 +56,7 @@ def validate_elements(elements, size):
     return True
 
 # Test the function
-looping_elements = find_looping_elements()
+looping_elements = find_looping_elements_continuous()
 print(looping_elements)
 
 # Check if the code is valid

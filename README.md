@@ -1,47 +1,56 @@
-# 2-4 Cuckoo Hash Table Implementation
+# PostgreSQL sample database Docker container
 
-This code provides an implementation of a 2-4 Cuckoo Hash Table, a variant of Cuckoo Hashing where each bucket can hold up to 4 items.
+This document describes how to use Docker to build and run a container containing PostgreSQL and sample data to quickly configure the database in different environments.
 
-## Features
-1. **Two Hash Functions**: Uses two hash functions to determine the positions of keys in two separate tables.
-2. **Collision Handling**: In case of collisions, it uses the cuckoo hashing approach to relocate items.
-3. **Load Factor Calculation**: Can determine the load factor, indicating the fraction of the hash table's capacity that's currently occupied.
+## Prerequisites
 
-## How to Use
+- Docker is installed. If it has not been installed, please refer to [Docker official documentation](https://docs.docker.com/get-docker/) to install it.
+- SQL files containing sample data, such as `sample_data.sql`, have been prepared.
 
-### Prerequisites
-- Ensure you have Python installed on your machine.
-- The `mmh3` module is required. You can install it using pip:
-  ```
-  pip install mmh3
-  ```
+## Build Docker image
 
-### Running the Code
+1. Create a new directory and place the SQL file containing the sample data into it.
 
-1. **Inserting Keys**: The code is designed to insert a specific number of randomly generated keys into the hash table. The number of keys to be inserted should be provided as a command-line argument.
+2. Open the terminal, switch to the directory, and execute the following command to build the Docker image:
 
-   Example:
-   ```bash
-   python cuckoo_hash.py 100
-   ```
-   This command will insert 100 random keys into the hash table.
+    ```bash
+    docker build -t postgres-sample-db .
+    ```
 
-2. **Results**: After inserting the keys, the code calculates the average number of relocations required during insertions and the current load factor of the hash table. The results are appended to a file named `result.txt`.
+    After the command is executed, a Docker image named `postgres-sample-db` is created.
 
-   The format of the results is:
-   ```
-   Number of Keys: [Number of Keys], Average Relocations: [Average Relocations], Load Factor: [Load Factor]
-   ```
+## Run Docker container
 
-## Code Structure
+Execute the following command to start a container based on the `postgres-sample-db` image:
 
-- **`random_key(length=8)`**: Generates a random string of lowercase English letters. The default length is 8, but it can be changed by providing a different length as an argument.
-- **`CuckooHashTable` Class**: Represents the 2-4 Cuckoo Hash Table.
-  - **`insert(key, value)`**: Inserts a key-value pair into the hash table.
-  - **`get(key)`**: Retrieves the value associated with the provided key.
-  - **`delete(key)`**: Deletes the key-value pair associated with the provided key.
-  - **`load_factor()`**: Calculates and returns the load factor of the hash table.
+```bash
+docker run -d --name mydb -p 5432:5432 postgres-sample-db
+```
 
----
+This command will run a container named `mydb` in the background and map the container's 5432 port to the host's 5432 port.
 
-This README provides an overview of the functionality, guides users on prerequisites and usage, and offers a brief on the main components of the code. It should help users understand and use the code effectively.
+## Connect to database
+
+After the container is started, you can use the PostgreSQL client to connect to the database. For example, using the `psql` command line client:
+
+```bash
+psql -h localhost -p 5432 -U postgres mydb
+```
+
+This will connect to the `mydb` database as the `postgres` user.
+
+## Stop and delete containers
+
+If you want to stop the container, you can execute:
+
+```bash
+docker stop mydb
+```
+
+If you want to delete the container, you can execute:
+
+```bash
+docker rm mydb
+```
+
+Please note that deleting a container will cause the data in the container to be lost. If you need to persist data, you can use Docker volumes or store the data on the host.

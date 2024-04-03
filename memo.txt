@@ -1,1 +1,1 @@
-Continue to debug with public.film
+Continue to debug the last SELECT part of sample_data.sql
